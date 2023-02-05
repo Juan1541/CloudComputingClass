@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio Website</title>
+    <link rel="stylesheet" href="hwsstyle.css">
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+</head>
+<body>
+    <div class="hero">
+        <nav>
+            <img src="img/cetyslogo.png" class="logo">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">About Me</a></li>
+                <li><a href="homework.html">My Homework</a></li>
+                <li><a href="https://github.com/Juan1541">My Github</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="ourcontact.html">Our Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <span class="title">Homework #2</span>
+            <h1><span>Q1: Create a static website using AWS S3 and explain in great technical detail what you did.</span></h1>
+            <p>
+                Well first of all, I had to install the AWS CLI, which is a command line interface which allows me to interact with the AWS services,
+                including the S3, which is what we will be using for this class. Once installed, I have to run the command of: aws s3api create-bucket --bucket juand.cetystijuana.com 
+                --region us-east-1. Since S3 behaves as a file system, I had to use similar commands for managing systems. In this case, since I'm on a Mac, I'll be using the: mkdir command,
+                on top of that I'll also use: s3://, which indicates the address that is in the S3. Following that, I put my bucket's name, being: juand.cetystijuana.com,
+                having cetystijuana.com as the domain and juand being its subdomain to make it unique from my classmates and with the region set to us-east-1 at the end. 
+                After that I had to create a json file which gives permission to everyone making it public with "*" named as the policy.json.</p>
+                <img src="/img/sshw2.png" width="600" height="250"> 
+            <p>
+                Following this, I had to use the command: aws s3api put-bucket-policy --bucket juand.cetystijuana.com --policy file:///[My file location of policy.json]. On top
+                of that, we can test it with: aws get-bucket-policy --bucket juand.cetystijuana.com. After that, I also had to create an index.html and error.html in the bucket directory with the command: aws s3 website s3://juand.cetystijuana.com --index-document index.html --error-document error.html .
+                Once created both files, we use the command of "vi index.html" and "vi error.html" to edit each file to add a simple heading tag with "Hello". Finally you
+                have to create the directory for the bucket files which would be the command of: aws s3 sync . s3://juand.cetystijuana.com which will sync the local files of
+                the index.html and error.html to the bucket.
+            </p>
+            <h1><span>Q2: Link your website to a subdomain of cetystijuana.com and explain in great technial detail what you did.</span></h1>
+            <p>
+                Well after first setting the static website using the AWS as mentioned before in question #1, we then have to link out website to the subdomain witha host zone. I 
+                then have to make a requast on to upload a CNAME to the host from my bucket, juand.cetystijuana.com to the juand.cetystijuana.s3-website.us-east-1.amazonaws.com .  
+                I then had to create a new json file that as show:
+                <img src="/img/sshw1.png" width="600" height="250">
+            </p>
+            <p>
+                Afterwards, I made a request to the aws route 53 service with the command of: aws route53 change-resource-record-sets --hosted-zone-id Z03346142C3RKH191036Y
+                --change-batch file:///[My file location of policy.json]. With this will, I'll recieve a request status which for my case it took a while to process. Once done 
+                I was able to access the website through my bucket, juand.cetystijuana.com, since the route 53 has been able to direct us to there.
+            </p>
+
+            <h1><span>Q3: Add yourself to the list of students in cetystijuana.com .</span></h1>
+            <p>
+                Now I had to be able to link my 
+                website in the cetystijuana.com, therefore, I made a different folder via the terminal by using: mkdir class_bucket, and then cd class_bucket to access that folder. Then
+                I downloaded all the website's assets via the command: aws s3 sync s3://cetystijuana.com . , the dot at the end means it's syncing my local folder with the webiste, therefore
+                downloading the content. Once downloaded, I opened it's index.html and added my information:
+                <img src="/img/sshw3.png" width="600" height="250">
+            </p>
+            <p>
+                Once finished with inputting my information, I use the command of: aws s3 sync . s3://cetystijuana.com, which in this case since the . is before the s3://cetystijuana.com
+                which makes my local files to be uploaded to the bucket to be able to show online on the website.
+                <img src="/img/sshw4.png" width="600" height="300">
+                As you can see, mine is able to show up on the website and when the link is clicked it heads to my personal website.
+                <img src="/img/sshw5.png" width="600" height="250">
+            </p>
+            <h1><span>Q4: Create an entry model in the Students DynamoDBtable using the cli.</span></h1>
+            <p>
+                Here I have created the entry list in the Students DynamoDB table using the command:
+                <img src="/img/sshw6.png" width="700" height="40">
+                The top command is to be able to access and add into the DynamoDB in the table of Students, with the categories of the ID, Full Name, and the name of the personal
+                webiste, the S being short for String which is what we are able to put in the json file. As shown on the picture, I filled it out correctly and so the second command 
+                is to be able to check if I am actually registered in the DynamoDB as shown here:
+                <img src="/img/sshw7.png" width="600" height="250">
+                Once confirmed with this command, we can safely say that we have registered ourselves in the DynamoDB.
+            </p>
+            <h1><span>Q5: Watch the Not Just Code Monkeys by Martin Fowler and write your comments in your personal static website.</span></h1>
+            <p>
+                Well after watching this video, the conversation starts with the Martin Fowler's disappointment in the traditional Agile development approach, which prioritizes documentation 
+                over collaboration between business and technical teams. This approach neglects the input of developers who have a deeper understanding of the technical limitations and 
+                possibilities of the software being created. Fowler attributes this disconnect between business and tech to a lack of domain knowledge among developers and a general 
+                disinterest in the area they are working on. Fowler also touches upon the idea that developers have a responsibility to care about the end user, to avoid implementing 
+                "dark patterns" that harm the user experience. They argue that as developers, we are just as responsible for the software we create as the person who requests it, and 
+                it is our duty to ensure the code we write is ethical and of high quality. Fowler then moves on to the topic of impact judgment, acknowledging that as developers, 
+                we have the potential to shape the world and must use our skills responsibly. They highlight the need for developers to think beyond just programming, and see themselves 
+                as professionals with significant impact and responsibilities. The talk concludes by raising two important issues - the alienation of certain groups in the tech industry 
+                and the importance of privacy. Fowler emphasizes that we as developers have the power to challenge institutionalized segregation and ensure that technology is inclusive. 
+                They also emphasize the importance of considering privacy in our work and reflect on our career's overall impact.
+
+            </p>
+        </div>
+    </div>
+</body>
+</html>

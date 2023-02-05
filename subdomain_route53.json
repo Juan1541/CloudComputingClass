@@ -1,0 +1,17 @@
+{
+    "Changes": [
+        {
+            "Action": "UPSERT",
+            "ResourceRecordSet": {
+                "Name": "juand.cetystijuana.com",
+                "Type": "CNAME",
+                "TTL": 600,
+                "ResourceRecords": [
+                    {
+                        "Value": "juand.cetystijuana.com.s3-website-us-east-1.amazonaws.com"
+                    }
+                ]
+            }
+        }
+    ]
+}
